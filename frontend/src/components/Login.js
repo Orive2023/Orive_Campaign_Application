@@ -21,6 +21,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    Navigate("/dashboard");
     try {
       const response = await axios.post(
         "http://localhost:8080/api/v1/auth/authenticate",
@@ -28,8 +29,7 @@ const Login = () => {
       );
       const token = response.data.token;
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      Navigate("/dashboard",{state:{token:response.data}})
-
+      Navigate("/dashboard", { state: { token: response.data } });
     } catch (error) {
       console.error("Login error", error);
     }
